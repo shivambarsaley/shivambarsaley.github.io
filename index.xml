@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hitchhiker&#39;s guid to web development</title>
+    <link>http://www.barsaley.com/index.xml</link>
+    <description>Recent content on Hitchhiker&#39;s guid to web development</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Feb 2017 00:29:51 +0530</lastBuildDate>
+    <atom:link href="http://www.barsaley.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>test</title>
+      <link>http://www.barsaley.com/blog/test/</link>
+      <pubDate>Sat, 11 Feb 2017 00:29:51 +0530</pubDate>
+      
+      <guid>http://www.barsaley.com/blog/test/</guid>
+      <description>&lt;p&gt;Hello World&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hi There !!!</title>
+      <link>http://www.barsaley.com/me/</link>
+      <pubDate>Fri, 10 Feb 2017 23:44:38 +0530</pubDate>
+      
+      <guid>http://www.barsaley.com/me/</guid>
+      <description>&lt;p&gt;Currently working with Mckinsey &amp;amp; Company as an almost &lt;em&gt;Full Stack Dev&lt;/em&gt;. Graduated from VIT University.&lt;br /&gt;
+Proficient with &lt;strong&gt;Javascript [Nodejs,Express,Sails,Angular]&lt;/strong&gt; &amp;amp; &lt;strong&gt;Ruby [ROR]&lt;/strong&gt; .&lt;br /&gt;
+Also worked on Java [Play, Servlets] &amp;amp; Python.&lt;br /&gt;
+Tries hard to get his CSS work. :(&lt;br /&gt;
+Likes DevOps&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
