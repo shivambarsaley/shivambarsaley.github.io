@@ -24,13 +24,13 @@
 &lt;h2 id=&#34;what-is-sequelize&#34;&gt;What is Sequelize:&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/sequelize/sequelize&#34;&gt;&lt;strong&gt;Sequelize&lt;/strong&gt;&lt;/a&gt; is a promise-based ORM for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support, relations, read replication and more.&lt;br /&gt;
-Before we being, I would recommend you to have a basic understanding of&lt;/p&gt;
+Before we begin, I would recommend you to have a basic understanding of&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;JavaScript, though I haven&amp;rsquo;t used much of ES6 constructs, but its good to know.&lt;/li&gt;
 &lt;li&gt;NodeJs, How the ecosystem works.&lt;/li&gt;
 &lt;li&gt;What is an ORM, well obviously.&lt;/li&gt;
-&lt;li&gt;Sequelize, Since this is particularly not an introductory post. I would recommend the following posts.
+&lt;li&gt;Sequelize: Since this is particularly not an introductory post. I would recommend the following posts.
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://codeforgeek.com/2017/01/getting-started-sequelize-postgresql/&#34;&gt;Getting Started with Sequelize and PostgreSQL&lt;/a&gt;&lt;/li&gt;
@@ -118,17 +118,17 @@ Before we being, I would recommend you to have a basic understanding of&lt;/p&gt
 &lt;li&gt;Create the database &lt;strong&gt;todo_dev&lt;/strong&gt;, in your mysql client: &lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;create&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;schema&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;todo_dev;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/li&gt;
-&lt;li&gt;Running the migrations&lt;div class=&#34;highlight&#34; style=&#34;background: #000000&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;node_modules/.bin/sequelize db:migrate 
+&lt;li&gt;Run the migrations&lt;div class=&#34;highlight&#34; style=&#34;background: #000000&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;node_modules/.bin/sequelize db:migrate 
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Post this, You will be having a schema like:
+&lt;p&gt;Post this, Your database schema should look like:
 &lt;img src=&#34;http://www.barsaley.com/images/sequelize_101/DB_Schema.png&#34; style=&#34;width:50%;display:block; margin:0 auto&#34; alt=&#34;here we go again&#34;/&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;2-migrations-and-seeders&#34;&gt;2. Migrations and Seeders:&lt;/h3&gt;
 
-&lt;p&gt;Sequelize comes in with a very well build in support for migrations, These are basically managed via the &lt;a href=&#34;https://github.com/sequelize/cli&#34;&gt;sequelize-cli&lt;/a&gt;.
+&lt;p&gt;Sequelize comes in with a very well built-in support for migrations, Which are basically managed via the &lt;a href=&#34;https://github.com/sequelize/cli&#34;&gt;sequelize-cli&lt;/a&gt;.
 It can be installed via npm as
 &lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ npm install --save sequelize-cli
 &lt;/pre&gt;&lt;/div&gt;
@@ -171,7 +171,7 @@ module.exports = {
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
-&lt;p&gt;Okay Now that we have the basic structure up, Lets on-board some users, Luckily &lt;a href=&#34;http://marvel.wikia.com/wiki/Steven_Rogers_(Earth-616)&#34;&gt;Steven Rogers&lt;/a&gt; and &lt;a href=&#34;http://marvel.wikia.com/wiki/Bruce_Banner_(Earth-616)&#34;&gt;Bruce Banner&lt;/a&gt; has signed up to be our early users.
+&lt;p&gt;Okay, Now that we have the basic structure up, Lets on-board some users, Luckily &lt;a href=&#34;http://marvel.wikia.com/wiki/Steven_Rogers_(Earth-616)&#34;&gt;Steven Rogers&lt;/a&gt; and &lt;a href=&#34;http://marvel.wikia.com/wiki/Bruce_Banner_(Earth-616)&#34;&gt;Bruce Banner&lt;/a&gt; have signed up to be our early users.
 &lt;img src=&#34;http://www.barsaley.com/images/memes/hell_yeah.gif&#34; style=&#34;width:60%;display:block; margin:0 auto&#34; alt=&#34;here we go again&#34;/&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;2-2-lets-add-some-seed-data&#34;&gt;2.2 Lets Add some Seed Data:&lt;/h4&gt;
@@ -227,7 +227,7 @@ module.exports = {
 
 &lt;p&gt;There are couple of more seeders we have for app available &lt;a href=&#34;URL to seeder folders&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Unlike migrations, Sequelize does not keep track of the seeders it has run by default, We specifically updated our config to achieve this. Our config now looks like:&lt;/p&gt;
+&lt;p&gt;Sequelize does not keep track of the seeders it has run by default, unlike migrations. We specifically updated our config to achieve this. Our config now looks like:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;# config/config.js
 
@@ -243,7 +243,7 @@ module.exports = {
 };
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The key &lt;code&gt;seederStorage&lt;/code&gt; does this for us, So now we are storing it in a table called &lt;strong&gt;SequelizeData&lt;/strong&gt;. We could also have saved it as a json, more on it &lt;a href=&#34;https://github.com/sequelize/cli#seed&#34;&gt;here&lt;/a&gt;.&lt;br /&gt;
+&lt;p&gt;The key &lt;code&gt;seederStorage&lt;/code&gt; does this for us, So now we are storing it in a table called &lt;strong&gt;SequelizeData&lt;/strong&gt;. We could also have saved it as a json, more about it &lt;a href=&#34;https://github.com/sequelize/cli#seed&#34;&gt;here&lt;/a&gt;.&lt;br /&gt;
 Unfortunately there isn&amp;rsquo;t much documentation on seeders.&lt;br /&gt;
 &lt;img src=&#34;http://www.barsaley.com/images/memes/sad.gif&#34; style=&#34;width:40%;display:block; margin:0 auto&#34; alt=&#34;here we go again&#34;/&gt;
 You could follow the ongoing discussions &lt;a href=&#34;https://github.com/sequelize/cli/issues/225&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;

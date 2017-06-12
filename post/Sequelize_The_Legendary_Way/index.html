@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Using Sequelize to build a simple node app">
+  <meta name="description" content="Using Sequelize to build a simple to-do app">
   <meta name="generator" content="Hugo 0.19" />
 
   <title>Sequelize The Legendary Way &middot; Shivam Barsaley</title>
@@ -181,7 +181,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://stackoverflow.com/users/*" target="_blank"><i class="fa fa-stack-overflow fa-fw"></i>Stack Overflow</a>
+      <a class="pure-menu-link" href="https://stackoverflow.com/users/3324509" target="_blank"><i class="fa fa-stack-overflow fa-fw"></i>Stack Overflow</a>
     </li>
     
 
@@ -225,7 +225,7 @@
 
 <div class="header">
   <h1>Sequelize The Legendary Way</h1>
-  <h2>Using Sequelize to build a simple node app</h2>
+  <h2>Using Sequelize to build a simple to-do app</h2>
 </div>
 <div class="content">
 
@@ -279,13 +279,13 @@
 <h2 id="what-is-sequelize">What is Sequelize:</h2>
 
 <p><a href="https://github.com/sequelize/sequelize"><strong>Sequelize</strong></a> is a promise-based ORM for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support, relations, read replication and more.<br />
-Before we being, I would recommend you to have a basic understanding of</p>
+Before we begin, I would recommend you to have a basic understanding of</p>
 
 <ol>
 <li>JavaScript, though I haven&rsquo;t used much of ES6 constructs, but its good to know.</li>
 <li>NodeJs, How the ecosystem works.</li>
 <li>What is an ORM, well obviously.</li>
-<li>Sequelize, Since this is particularly not an introductory post. I would recommend the following posts.
+<li>Sequelize: Since this is particularly not an introductory post. I would recommend the following posts.
 
 <ul>
 <li><a href="https://codeforgeek.com/2017/01/getting-started-sequelize-postgresql/">Getting Started with Sequelize and PostgreSQL</a></li>
@@ -373,17 +373,17 @@ Before we being, I would recommend you to have a basic understanding of</p>
 <li>Create the database <strong>todo_dev</strong>, in your mysql client: <div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">create</span> <span style="color: #66d9ef">schema</span> <span style="color: #f8f8f2">todo_dev;</span>
 </pre></div>
 </li>
-<li>Running the migrations<div class="highlight" style="background: #000000"><pre style="line-height: 125%"><span></span>node_modules/.bin/sequelize db:migrate 
+<li>Run the migrations<div class="highlight" style="background: #000000"><pre style="line-height: 125%"><span></span>node_modules/.bin/sequelize db:migrate 
 </pre></div>
 </li>
 </ul>
 
-<p>Post this, You will be having a schema like:
+<p>Post this, Your database schema should look like:
 <img src="http://www.barsaley.com/images/sequelize_101/DB_Schema.png" style="width:50%;display:block; margin:0 auto" alt="here we go again"/></p>
 
 <h3 id="2-migrations-and-seeders">2. Migrations and Seeders:</h3>
 
-<p>Sequelize comes in with a very well build in support for migrations, These are basically managed via the <a href="https://github.com/sequelize/cli">sequelize-cli</a>.
+<p>Sequelize comes in with a very well built-in support for migrations, Which are basically managed via the <a href="https://github.com/sequelize/cli">sequelize-cli</a>.
 It can be installed via npm as
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ npm install --save sequelize-cli
 </pre></div>
@@ -426,7 +426,7 @@ module.exports = {
 </pre></div>
 </p>
 
-<p>Okay Now that we have the basic structure up, Lets on-board some users, Luckily <a href="http://marvel.wikia.com/wiki/Steven_Rogers_(Earth-616)">Steven Rogers</a> and <a href="http://marvel.wikia.com/wiki/Bruce_Banner_(Earth-616)">Bruce Banner</a> has signed up to be our early users.
+<p>Okay, Now that we have the basic structure up, Lets on-board some users, Luckily <a href="http://marvel.wikia.com/wiki/Steven_Rogers_(Earth-616)">Steven Rogers</a> and <a href="http://marvel.wikia.com/wiki/Bruce_Banner_(Earth-616)">Bruce Banner</a> have signed up to be our early users.
 <img src="http://www.barsaley.com/images/memes/hell_yeah.gif" style="width:60%;display:block; margin:0 auto" alt="here we go again"/></p>
 
 <h4 id="2-2-lets-add-some-seed-data">2.2 Lets Add some Seed Data:</h4>
@@ -482,7 +482,7 @@ module.exports = {
 
 <p>There are couple of more seeders we have for app available <a href="URL to seeder folders">here</a></p>
 
-<p>Unlike migrations, Sequelize does not keep track of the seeders it has run by default, We specifically updated our config to achieve this. Our config now looks like:</p>
+<p>Sequelize does not keep track of the seeders it has run by default, unlike migrations. We specifically updated our config to achieve this. Our config now looks like:</p>
 
 <pre><code># config/config.js
 
@@ -498,7 +498,7 @@ module.exports = {
 };
 </code></pre>
 
-<p>The key <code>seederStorage</code> does this for us, So now we are storing it in a table called <strong>SequelizeData</strong>. We could also have saved it as a json, more on it <a href="https://github.com/sequelize/cli#seed">here</a>.<br />
+<p>The key <code>seederStorage</code> does this for us, So now we are storing it in a table called <strong>SequelizeData</strong>. We could also have saved it as a json, more about it <a href="https://github.com/sequelize/cli#seed">here</a>.<br />
 Unfortunately there isn&rsquo;t much documentation on seeders.<br />
 <img src="http://www.barsaley.com/images/memes/sad.gif" style="width:40%;display:block; margin:0 auto" alt="here we go again"/>
 You could follow the ongoing discussions <a href="https://github.com/sequelize/cli/issues/225">here</a>.</p>
@@ -886,6 +886,17 @@ So something like</p>
 </div>
 <script src="http://www.barsaley.com/js/ui.js"></script>
 
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-100902416-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 
 
