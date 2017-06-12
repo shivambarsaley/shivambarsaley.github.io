@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Using Sequelize to build a simple node app">
+  <meta name="generator" content="Hugo 0.19" />
+
+  <title>Sequelize The Legendary Way &middot; Shivam Barsaley</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="http://www.barsaley.com/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="http://www.barsaley.com/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="http://www.barsaley.com/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="http://www.barsaley.com/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="http://www.barsaley.com/">127.0.0.1</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://www.barsaley.com/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://www.barsaley.com/me/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://www.barsaley.com/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://www.barsaley.com/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://www.barsaley.com/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://www.barsaley.com/contact/"><i class='fa fa-phone-square fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/shivam_barsaley" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/shivambarsaley" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/shivambarsaley" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://gitlab.com/shivam_barsaley" target="_blank"><i class="fa fa-gitlab fa-fw"></i>GitLab</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://stackoverflow.com/users/*" target="_blank"><i class="fa fa-stack-overflow fa-fw"></i>Stack Overflow</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2017. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Sequelize The Legendary Way</h1>
+  <h2>Using Sequelize to build a simple node app</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>11 Jun 2017</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="http://www.barsaley.com/topics/js">js</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-topic" href="http://www.barsaley.com/topics/nodejs">nodejs</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://www.barsaley.com/tags/orm">orm</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://www.barsaley.com/tags/database">database</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://www.barsaley.com/tags/sequelize">sequelize</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  
+
+<p>In this post, Lets build an awesome todo app for our legendary comic Heroes.</p>
+
+<p><img src="http://www.barsaley.com/images/sequelize_101/avengers_ganganam.gif" style="width:50%;display:block; margin:0 auto" alt="here we go again"/></p>
+
+<h3 id="what-is-sequelize">What is Sequelize:</h3>
+
+<p><a href="https://github.com/sequelize/sequelize"><strong>Sequelize</strong></a> is a promise-based ORM for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support, relations, read replication and more.</p>
+
+<h3 id="0-okay-so-here-we-roll">0. Okay, So here we roll:</h3>
+
+<p><img src="http://www.barsaley.com/images/memes/Lets_get_started.gif" style="width:40%;display:block; margin:0 auto" alt="here we go again"/></p>
+
+<p>Over the course of the post, we would be working around to create the application available <a href="https://github.com/shivambarsaley/Sequelize_101"><em>here</em></a>. You could browse through the commits to understand each step.</p>
+
+<h4 id="0-1-setting-things-up">0.1 Setting things up:</h4>
+
+<ul>
+<li>Clone the repo: <div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>git clone https://github.com/shivambarsaley/Sequelize_101.git 
+</pre></div>
+</li>
+<li>#TODO Switch to branch <strong>starting_points</strong>, master branch contains the completed app. <code style="color: blue; background: ">git checkout starting_points</code>
+<br /></li>
+<li>Install all node dependencies <div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>npm install
+</pre></div>
+</li>
+<li>Create the database <strong>todo_dev</strong>, in your mysql client: <div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">create</span> <span style="color: #66d9ef">schema</span> <span style="color: #f8f8f2">todo_dev;</span>
+</pre></div>
+</li>
+<li>Running the migrations<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>node_modules/.bin/sequelize db:migrate 
+</pre></div>
+</li>
+</ul>
+
+<p>Post this, You will be having a schema like:
+<img src="http://www.barsaley.com/images/sequelize_101/DB_Schema.png" style="width:50%;display:block; margin:0 auto" alt="here we go again"/></p>
+
+<h3 id="1-migrations-and-seeders">1. Migrations and Seeders:</h3>
+
+<p>Sequelize comes in with a very well build in support for migrations, These are basically managed via the <a href="https://github.com/sequelize/cli">sequelize-cli</a></p>
+
+<p>It can be installed via npm as
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ npm install --save sequelize-cli
+</pre></div>
+</p>
+
+<h4 id="1-1-creating-new-migrations">1.1 Creating New Migrations:</h4>
+
+<p>Lets create a new migration to add an ending date to our todo&rsquo;s, using the sequelize-cli we have<br />
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ node_modules/.bin/sequelize migration:create --name<span style="color: #f92672">=</span>Adding_End_date_to_Todo
+</pre></div>
+</p>
+
+<p>This would create new migration at <code style="color: blue; background: lightgray">/server/migrations</code>
+<br />
+Lets update this migration file</p>
+
+<pre><code># 20170406200830-Adding_End_date_to_Todo.js
+'use strict';
+
+module.exports = {
+  up: function (queryInterface, Sequelize) {
+    
+    return queryInterface.addColumn('Todos', 'endDate',
+      {
+        type: Sequelize.DATE,
+        allowNull: true,
+      }
+    );
+  },
+
+  down: function (queryInterface, Sequelize) {
+    
+    return queryInterface.removeColumn('Todos', 'endDate');
+  }
+};
+</code></pre>
+
+<p>And execute the migrate command
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ node_modules/.bin/sequelize db:migrate
+</pre></div>
+</p>
+
+<p>Okay Now that we have the basic structure up, Lets on-board some users, Luckily <a href="http://marvel.wikia.com/wiki/Steven_Rogers_(Earth-616)">Steven Rogers</a> and <a href="http://marvel.wikia.com/wiki/Bruce_Banner_(Earth-616)">Bruce Banner</a> has signed up to be our early users.
+<img src="http://www.barsaley.com/images/memes/hell_yeah.gif" style="width:60%;display:block; margin:0 auto" alt="here we go again"/></p>
+
+<h4 id="1-2-lets-add-some-seed-data">1.2 Lets Add some Seed Data:</h4>
+
+<p>Just like migrations, we can create some seeders to populate the Database. Lets start by adding some categories</p>
+
+<p>To create a seed file:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ node_modules/.bin/sequelize seed:create --name<span style="color: #f92672">=</span>Adding_Basic_Categories  
+</pre></div>
+
+This would create new migration at <code>/server/seeders/</code><br />
+Lets seed some data</p>
+
+<pre><code># 20170406202530-Adding_Basic_Categories.js
+'use strict';
+
+module.exports = {
+  up: function (queryInterface, Sequelize) {
+    
+    return queryInterface.bulkInsert('Categories', [
+      {
+        id: 1,
+        name: 'Work',
+        createdAt: Sequelize.fn('NOW'),
+        updatedAt: Sequelize.fn('NOW')
+      },
+      {
+        id: 2,
+        name: 'Personal',
+        createdAt: Sequelize.fn('NOW'),
+        updatedAt: Sequelize.fn('NOW')
+      },
+      {
+        id: 3,
+        name: 'Avenge',
+        createdAt: Sequelize.fn('NOW'),
+        updatedAt: Sequelize.fn('NOW')
+      },
+    ], {});
+  },
+
+  down: function (queryInterface, Sequelize) {
+    
+    return queryInterface.bulkDelete('Categories', null, {});
+  }
+};
+</code></pre>
+
+<p>Running the seeder task
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #e6db74">`</span>node_modules/.bin/sequelize db:seed:all<span style="color: #e6db74">`</span>  
+</pre></div>
+</p>
+
+<p>There are couple of more seeders we have for app available <a href="URL to seeder folders">here</a></p>
+
+<p>Unlike migrations, Sequelize does not keep track of the seeders it has run by default, We specifically updated our config to achieve this. Our config now looks like:</p>
+
+<pre><code># config/config.js
+
+module.exports = {
+  &quot;development&quot;: {
+    &quot;username&quot;: &quot;root&quot;,
+    &quot;password&quot;: null,
+    &quot;database&quot;: &quot;todo_dev&quot;,
+    &quot;host&quot;: &quot;localhost&quot;,
+    &quot;dialect&quot;: &quot;mysql&quot;,
+    &quot;seederStorage&quot;: &quot;sequelize&quot;
+  }...
+};
+</code></pre>
+
+<p>The key <code>seederStorage</code> does this for us, So now we are storing it in a table called <strong>SequelizeData</strong>. We could also have saved it as a json, more on it <a href="https://github.com/sequelize/cli#seed">here</a>.<br />
+Unfortunately there isn&rsquo;t much documentation on seeders.<br />
+<img src="http://www.barsaley.com/images/memes/sad.gif" style="width:40%;display:block; margin:0 auto" alt="here we go again"/>
+You could follow the ongoing discussions <a href="https://github.com/sequelize/cli/issues/225">here</a>.</p>
+
+<h3 id="3-querying">3. Querying:</h3>
+
+<p>Since most of the queries around simple CRUD operations are covered in the introductory tutorials, I ll just leave the samples below:</p>
+
+<pre><code>#server/src/todo.js  
+
+'use strict';
+const Model = require('../models/index');
+
+const getTodosForUser = (userId, includeTasks = true) =&gt; {
+  const options = {
+    where: {userId},
+    include: [Model.Task]
+  };
+  if(!includeTasks){
+    delete options.include;
+  }
+  return Model.Todo.findAll(options);
+};
+
+const addTodo = (UserId, CategoryId, todoName) =&gt; {
+
+  return Model.Todo.create({UserId, CategoryId, name:todoName});
+};
+
+const markAsComplete = (id) =&gt; {
+
+  return Model.Todo.update({isCompleted: true}, {where:{id}});
+};
+
+const deleteTodo = (id) =&gt; {
+
+  return Model.Todo.destroy({where:{id}})
+};
+
+
+module.exports = {getTodosForUser, addTodo,markAsComplete, deleteTodo};
+
+</code></pre>
+
+<h4 id="3-1-associations">3.1 Associations:</h4>
+
+<p>Bruce being a avid user, Needs to get more grained data about his todo. Lets get on to it, can&rsquo;t risk him getting <a href="http://gph.is/1PuzniV">angry</a>.</p>
+
+<p>He wants us to find all his todo&rsquo;s with just the incomplete tasks, This could be achieved easily by updating the include clause, Lets add a new method to the todo helper.</p>
+
+<pre><code>const getAllTodoWithIncompleteTasksOnly = (UserId) =&gt; {
+
+  return Model.Todo.findAll({
+    where: {UserId},
+    include:[{model: Model.Task, where:{isCompleted: false}}]
+  });
+}
+</code></pre>
+
+<p>This should execute the SQL query with an ON clause to just return the incomplete tasks only, Something like</p>
+
+<pre><code>SELECT `Todo`.`id`, `Todo`.`name`, `Todo`.`isCompleted`, `Todo`.`createdAt`, `Todo`.`updatedAt`, `Todo`.`UserId`, `Todo`.`CategoryId`, `Tasks`.`id` AS `Tasks.id`, `Tasks`.`name` AS `Tasks.name`, `Tasks`.`isCompleted` AS `Tasks.isCompleted`, `Tasks`.`createdAt` AS `Tasks.createdAt`, `Tasks`.`updatedAt` AS `Tasks.updatedAt`, `Tasks`.`TodoId` AS `Tasks.TodoId` FROM `Todos` AS `Todo` INNER JOIN `Tasks` AS `Tasks` ON `Todo`.`id` = `Tasks`.`TodoId` AND `Tasks`.`isCompleted` = false WHERE `Todo`.`UserId` = 1;
+</code></pre>
+
+<p>We could similarly update the include clause to just select some columns say name</p>
+
+<pre><code>include:[{model: Model.Task, where:{isCompleted: false}}, attributes:['name']]
+</code></pre>
+
+<p>Or to exclude a particular column</p>
+
+<pre><code>include:[{model: Model.Task, where:{isCompleted: false}, attributes: {exclude:['isCompleted']}}]
+</code></pre>
+
+<p><img src="https://media.giphy.com/media/XSc4Kkc5u2WZy/giphy.gif" style="width:60%;display:block; margin:0 auto" alt="Hulk Happy"/></p>
+
+<h4 id="3-2-raw-queries">3.2 Raw Queries:</h4>
+
+<p>Often there is a need to run already prepared SQL queries, which can be achieved using the sequelize.query function.</p>
+
+<p>So to run a query</p>
+
+<pre><code>select * from Categories
+</code></pre>
+
+<p>We can do</p>
+
+<pre><code>#server/src/category.js
+
+const getAllCategoriesRaw = () =&gt; {
+
+  Model.sequelize.query('Select * from Categories');
+};
+</code></pre>
+
+<p>Now this would return something like</p>
+
+<pre><code>[ [ RowDataPacket {
+      id: 1,
+      name: 'Work',
+      createdAt: 2017-04-16T20:29:02.000Z,
+      updatedAt: 2017-04-16T20:29:02.000Z },
+    RowDataPacket {
+      id: 2,
+      name: 'Personal',
+      createdAt: 2017-04-16T20:29:02.000Z,
+      updatedAt: 2017-04-16T20:29:02.000Z },
+    RowDataPacket {
+      id: 3,
+      name: 'HitList',
+      createdAt: 2017-04-16T20:29:02.000Z,
+      updatedAt: 2017-04-16T20:29:02.000Z } ],
+  [ RowDataPacket {
+      id: 1,
+      name: 'Work',
+      createdAt: 2017-04-16T20:29:02.000Z,
+      updatedAt: 2017-04-16T20:29:02.000Z },
+    RowDataPacket {
+      id: 2,
+      name: 'Personal',
+      createdAt: 2017-04-16T20:29:02.000Z,
+      updatedAt: 2017-04-16T20:29:02.000Z },
+    RowDataPacket {
+      id: 3,
+      name: 'HitList',
+      createdAt: 2017-04-16T20:29:02.000Z,
+      updatedAt: 2017-04-16T20:29:02.000Z } ] ]
+</code></pre>
+
+<p>The structure of response is basically [result, metaData], Now metaData is dialect dependent, and in case of MySQL the response is basically two references to the same result object.</p>
+
+<p>We could get rid of the metadata, by passing the query type. This basically tells sequelize about how to format the result. This could be done as</p>
+
+<pre><code>Model.sequelize.query('Select * from Categories', {type: Model.sequelize.QueryTypes.SELECT});
+</code></pre>
+
+<p>We can also provide dynamic parameters (stuff to be replaced during query generation) to the raw query, There are two ways to do it</p>
+
+<h5 id="as-an-array">As an array:</h5>
+
+<pre><code>#server/src/category.js
+
+const getAllCategoriesReplacementsUsingArray = () =&gt; {
+
+  Model.sequelize.query('Select * from Categories where id &gt; ? and id &lt; ?',
+  {replacements:[1,4], type: Model.sequelize.QueryTypes.SELECT});
+}
+</code></pre>
+
+<p>Sequelize replaces the ? with the array elements in the order in which they occur.</p>
+
+<h5 id="as-reference-object">As reference object</h5>
+
+<pre><code>const getAllCategoriesReplacementsUsingObject = () =&gt; {
+
+  Model.sequelize.query('Select * from Categories where id &gt; :floorLimit and id &lt; :ceilLimit',
+  {replacements:{floorLimit: 1, ceilLimit:4}, type: Model.sequelize.QueryTypes.SELECT});
+}
+</code></pre>
+
+<p>Both of these would generate the same query as</p>
+
+<pre><code>Select * from Categories where id &gt; 1 and id &lt; 4
+</code></pre>
+
+<h5 id="stored-procedures">Stored Procedures:</h5>
+
+<p>Since raw queries provide an interface to write direct SQL queries, We could use it to call Stored Procedures, For an example, We have a very minimalistic Stored Proc at <code>/storedProcs</code> called <code>GetAllProducts</code>.</p>
+
+<p>We could use it, as</p>
+
+<pre><code>  Model.sequelize.query('Call GetAllProducts(:id)', {replacements:{id:1}})
+</code></pre>
+
+<h4 id="3-3-tiny-little-things">3.3 Tiny Little things:</h4>
+
+<h4 id="3-3-1-raw-true">3.3.1 raw: true</h4>
+
+<p>Sequelize always returns an instance object of the result, This basically includes functions to perform further operations over the result object.
+At times, We are not in need for any further operations over the result and only need to read/display.</p>
+
+<p>This flag comes in handy for such cases, It reduces all the overhead sequelize does after fetching.</p>
+
+<pre><code>  Model.Todo.findById(1, {raw:true})
+</code></pre>
+
+<p>This would give out a result as</p>
+
+<pre><code>{ id: 1,
+  name: 'Investigate',
+  isCompleted: 0,
+  createdAt: 2017-04-16T20:29:02.000Z,
+  updatedAt: 2017-04-16T20:29:02.000Z,
+  UserId: 1,
+  CategoryId: 1 }
+</code></pre>
+
+<h4 id="3-3-2-nested-keys">3.3.2 Nested Keys</h4>
+
+<p>Lets start by adding a new Todo and lets not add any tasks for it.
+Now we need to count all the todos which don&rsquo;t have any tasks.This would require accessing a column from the included Tasks table.</p>
+
+<pre><code>Model.Todo.count({include:[{model:Model.Task,required:false}],raw:true,where:{&quot;$Tasks.TodoId$&quot;:null}}))
+</code></pre>
+
+<p>Adding the nested column name in between <code>$</code> signs would do the trick.</p>
+
+<h4 id="3-3-3-validation">3.3.3 Validation:</h4>
+
+<p>Sequelize supports adding validations to models. These validations would be trigged before saving.
+Lets update our Todo model so name cannot be shorter than 2 and greater than 20.</p>
+
+<pre><code>sequelize.define('Todo', {
+    name: { allowNull: false, type: DataTypes.STRING, validate:{len:[2,20]} },
+    isCompleted: { type: DataTypes.BOOLEAN, defaultValue: false },
+  }
+</code></pre>
+
+<p>Setting the validate key on name does the trick.
+Though validations are run before create,update and save, but not before bulkCreate.
+So even with the validations in place, this</p>
+
+<pre><code>Model.Todo.bulkCreate([{name:&quot;A&quot;,CategoryId:1,UserId:1}])
+</code></pre>
+
+<p>would insert the record in Todos.
+To enable validations, just specify <code>validate: true</code> as options to bulkCreate,So</p>
+
+<pre><code>Model.Todo.bulkCreate([{name:&quot;A&quot;,CategoryId:1,UserId:1}],{validate:true})
+</code></pre>
+
+<p>would raise an error</p>
+
+<h4 id="3-3-4-having-clause">3.3.4 having Clause:</h4>
+
+<p>Lets try finding the Todo&rsquo;s having more than 2 tasks. A very simple SQL query for it can be</p>
+
+<pre><code>Select TodoId from Tasks group by TodoId having count(*) &gt; 2;
+</code></pre>
+
+<p>Sequelize does provide an option to add the having flag. We could simply do:</p>
+
+<pre><code>Model.Task.findAll({group:['TodoId'],attributes:['TodoId'],having:['Count (*) &gt; ?',2]})
+</code></pre>
+
+<h4 id="3-3-5-before-after-keys-in-migrations">3.3.5 before/after keys in migrations:</h4>
+
+<p>While adding columns via migrations, the options object supports two flags before/after for ordering of columns.</p>
+
+<pre><code>queryInterface.addColumn('Todos', 'endDate',
+  {
+    type: Sequelize.DATE,
+    allowNull: true,
+    after:'CategoryId
+    //before: 'createdAt' // Could use a before flag as well
+  }
+);
+</code></pre>
+
+<p>Column order do have a performance impact, especially in <a href="https://stackoverflow.com/questions/894522/is-there-any-reason-to-worry-about-the-column-order-in-a-table">mysql</a>.</p>
+
+<h3 id="5-gotcha-s">5. Gotcha&rsquo;s:</h3>
+
+<h4 id="5-1-promise-bluebird">5.1 Promise bluebird:</h4>
+
+<p>Sequelize provides lots of options for error handling, You can find them <a href="https://sequelize.readthedocs.io/en/v3/api/errors/">here</a>. Lets work upon catching the validation errors, We will update the addTodo method.</p>
+
+<pre><code>const addTodo = (UserId, CategoryId, todoName) =&gt; {
+
+  return Model.Todo.create({UserId, CategoryId, name:todoName})
+  .catch(Model.Sequelize.ValidationError, (e)=&gt; console.log(&quot;Dude... Those fields ain't valid&quot;,e))
+  .catch((e)=&gt; {console.log('Something else wrong here',e)})
+};
+</code></pre>
+
+<p>The catch block for Validation isn&rsquo;t the standard JS catch block, Its a <a href="http://bluebirdjs.com/docs/api/catch.html">filtered catch block</a> which bluebird provides, since sequelize return bluebird promises.</p>
+
+<p>Now this works all well, until we do something like</p>
+
+<pre><code>Promise.all([Model.Todo.create({UserId:1,CategoryId:1,name:&quot;A&quot;})])
+.catch(Model.Sequelize.ValidationError, (e)=&gt; console.log(&quot;Dude... Those fields ain't valid&quot;,e))
+.catch((e)=&gt; {console.log('Something else wrong here',e)})
+</code></pre>
+
+<p>This pops out an error,</p>
+
+<pre><code>&gt; Something else wrong here TypeError: Cannot set property 'name' of undefined
+    at error.BaseError (/Users/shivambarsaley/Desktop/website/projects/Sequelize_The_Legendary_Way/node_modules/sequelize/lib/errors.js:22:24)
+    at error.ValidationError (/Users/shivambarsaley/Desktop/website/projects/Sequelize_The_Legendary_Way/node_modules/sequelize/lib/errors.js:42:19)
+</code></pre>
+
+<p>Not something we were expecting, :thinking_face:
+Since native JavaScript promises do not support filtered catch block, Upon a rejection, it ends in the first catch block and executes <code>Model.Sequelize.ValidationError</code>
+which again throws another error which which we see upon being caught in the last catch block.
+We can solve this by using the standard catch block and instanceof operator.</p>
+
+<pre><code>Promise.all([Model.Todo.create({UserId:1,CategoryId:1,name:&quot;A&quot;})])
+.catch((e) =&gt; {
+  if(e instanceof Model.Sequelize.ValidationError){
+    console.log('Yipee')
+  }
+});
+</code></pre>
+
+<p>or by using Promise from sequelize, like</p>
+
+<pre><code> Model.Sequelize.Promise.all([
+  Model.Todo.create({UserId:1,CategoryId:1,name:&quot;A&quot;})
+])
+.catch(Model.Sequelize.ValidationError, (e)=&gt; console.log(&quot;Dude... Those fields ain't valid&quot;,e))
+.catch((e)=&gt; {console.log('Something else wrong here',e)});
+</code></pre>
+
+<p>or by using requiring bluebird.</p>
+
+<pre><code>const Promise = require('bluebird');
+Promise.all([Model.Todo.create({UserId:1,CategoryId:1,name:&quot;A&quot;})])
+.catch(Model.Sequelize.ValidationError, (e)=&gt; console.log(&quot;Dude... Those fields ain't valid&quot;,e))
+.catch((e)=&gt; {console.log('Something else wrong here',e)});
+</code></pre>
+
+<h4 id="5-2-adding-foreign-keys">5.2 Adding Foreign Keys:</h4>
+
+<p>If you are using a version of sequelize &lt; 4.0. There is a high possibility you might run into <a href="https://github.com/sequelize/sequelize/issues/7267">this</a> issue, just like I did. To start with you should upgrade to v4, and use the <a href="http://docs.sequelizejs.com/manual/tutorial/migrations.html#addconstraint-tablename-attributes-options-">addConstraint</a> method.</p>
+
+<p>Unfortunately, this wasn&rsquo;t so easy for us. So sticking to Sequelize 3.x, There is an ugly way of using raw queries in migrations
+So something like</p>
+
+<pre><code>queryInterface.sequelize.query('ALTER TABLE `Teachers` ADD CONSTRAINT Teachers_Subject_id FOREIGN KEY (SubjectId) REFERENCES Subjects(id);')
+</code></pre>
+
+<p>post creating the SubjectId column.</p>
+
+<h3 id="n-1-summarizing">N-1. Summarizing:</h3>
+
+<p>Sequelize is an extensive and powerful ORM for NodeJs. Though I didn&rsquo;t get a chance to work across other Javascript ORM&rsquo;s but Sequelize does seem to have a leading edge against others.</p>
+
+<p>Would love to hear your comments and views about the post.</p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'barsaley';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="http://www.barsaley.com/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+
