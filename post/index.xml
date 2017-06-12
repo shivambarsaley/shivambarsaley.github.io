@@ -22,31 +22,104 @@
 
 &lt;p&gt;&lt;img src=&#34;http://www.barsaley.com/images/sequelize_101/avengers_ganganam.gif&#34; style=&#34;width:50%;display:block; margin:0 auto&#34; alt=&#34;here we go again&#34;/&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;what-is-sequelize&#34;&gt;What is Sequelize:&lt;/h3&gt;
+&lt;h2 id=&#34;what-is-sequelize&#34;&gt;What is Sequelize:&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/sequelize/sequelize&#34;&gt;&lt;strong&gt;Sequelize&lt;/strong&gt;&lt;/a&gt; is a promise-based ORM for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support, relations, read replication and more.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/sequelize/sequelize&#34;&gt;&lt;strong&gt;Sequelize&lt;/strong&gt;&lt;/a&gt; is a promise-based ORM for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support, relations, read replication and more.&lt;br /&gt;
+Before we being, I would recommend you to have a basic understanding of&lt;/p&gt;
 
-&lt;h3 id=&#34;0-okay-so-here-we-roll&#34;&gt;0. Okay, So here we roll:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;JavaScript, though I haven&amp;rsquo;t used much of ES6 constructs, but its good to know.&lt;/li&gt;
+&lt;li&gt;NodeJs, How the ecosystem works.&lt;/li&gt;
+&lt;li&gt;What is an ORM, well obviously.&lt;/li&gt;
+&lt;li&gt;Sequelize, Since this is particularly not an introductory post. I would recommend the following posts.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://codeforgeek.com/2017/01/getting-started-sequelize-postgresql/&#34;&gt;Getting Started with Sequelize and PostgreSQL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://hackernoon.com/getting-started-with-sequelize-for-nodejs-applications-2854c58ffb8c&#34;&gt;Getting Started with Sequelize for Nodejs Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.codementor.io/hari577/object-relational-mapping-in-nodejs-with-sequelize-du1088h3l&#34;&gt;Object-Relational Mapping in Node.js with Sequelize&lt;/a&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;0-table-of-contents&#34;&gt;0. Table Of Contents:&lt;/h3&gt;
+
+&lt;nav id=&#34;toc&#34;&gt;
+&lt;nav id=&#34;TableOfContents&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#what-is-sequelize&#34;&gt;What is Sequelize:&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#0-table-of-contents&#34;&gt;0. Table Of Contents:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#1-okay-so-here-we-roll&#34;&gt;1. Okay, So here we roll:&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#1-1-setting-things-up&#34;&gt;1.1 Setting things up:&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#2-migrations-and-seeders&#34;&gt;2. Migrations and Seeders:&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#2-1-creating-new-migrations&#34;&gt;2.1 Creating New Migrations:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#2-2-lets-add-some-seed-data&#34;&gt;2.2 Lets Add some Seed Data:&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3-querying&#34;&gt;3. Querying:&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#3-1-associations&#34;&gt;3.1 Associations:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3-2-raw-queries&#34;&gt;3.2 Raw Queries:&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#as-an-array&#34;&gt;As an array:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#as-reference-object&#34;&gt;As reference object&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#stored-procedures&#34;&gt;Stored Procedures:&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3-3-tiny-little-things&#34;&gt;3.3 Tiny Little things:&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#3-3-1-raw-true&#34;&gt;3.3.1 raw: true&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3-3-2-nested-keys&#34;&gt;3.3.2 Nested Keys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3-3-3-validation&#34;&gt;3.3.3 Validation:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3-3-4-having-clause&#34;&gt;3.3.4 having Clause:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3-3-5-before-after-keys-in-migrations&#34;&gt;3.3.5 before/after keys in migrations:&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#4-gotcha-s&#34;&gt;4. Gotcha&amp;rsquo;s:&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#4-1-promise-bluebird&#34;&gt;4.1 Promise bluebird:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#4-2-adding-foreign-keys&#34;&gt;4.2 Adding Foreign Keys:&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summarizing&#34;&gt;Summarizing:&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;
+&lt;/nav&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+#toc ul { 
+  list-style-type: none; 
+}
+#toc ul ul { 
+  list-style-type: disc; 
+}
+&lt;/style&gt;
+
+&lt;h3 id=&#34;1-okay-so-here-we-roll&#34;&gt;1. Okay, So here we roll:&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://www.barsaley.com/images/memes/Lets_get_started.gif&#34; style=&#34;width:40%;display:block; margin:0 auto&#34; alt=&#34;here we go again&#34;/&gt;&lt;/p&gt;
 
 &lt;p&gt;Over the course of the post, we would be working around to create the application available &lt;a href=&#34;https://github.com/shivambarsaley/Sequelize_101&#34;&gt;&lt;em&gt;here&lt;/em&gt;&lt;/a&gt;. You could browse through the commits to understand each step.&lt;/p&gt;
 
-&lt;h4 id=&#34;0-1-setting-things-up&#34;&gt;0.1 Setting things up:&lt;/h4&gt;
+&lt;h4 id=&#34;1-1-setting-things-up&#34;&gt;1.1 Setting things up:&lt;/h4&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Clone the repo: &lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;git clone https://github.com/shivambarsaley/Sequelize_101.git 
+&lt;li&gt;Clone the repo: &lt;div class=&#34;highlight&#34; style=&#34;background: #000000&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;git clone https://github.com/shivambarsaley/Sequelize_101.git 
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/li&gt;
-&lt;li&gt;#TODO Switch to branch &lt;strong&gt;starting_points&lt;/strong&gt;, master branch contains the completed app. &lt;code style=&#34;color: blue; background: &#34;&gt;git checkout starting_points&lt;/code&gt;
-&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Switch to branch &lt;strong&gt;starting_points&lt;/strong&gt;, master branch contains the completed app.  &lt;div class=&#34;highlight&#34; style=&#34;background: #000000&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;git checkout starting_points 
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
 &lt;li&gt;Install all node dependencies &lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;npm install
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;Create the database &lt;strong&gt;todo_dev&lt;/strong&gt;, in your mysql client: &lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;create&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;schema&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;todo_dev;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/li&gt;
-&lt;li&gt;Running the migrations&lt;div class=&#34;highlight&#34; style=&#34;background: #f8f8f8&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;node_modules/.bin/sequelize db:migrate 
+&lt;li&gt;Running the migrations&lt;div class=&#34;highlight&#34; style=&#34;background: #000000&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;node_modules/.bin/sequelize db:migrate 
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -54,16 +127,15 @@
 &lt;p&gt;Post this, You will be having a schema like:
 &lt;img src=&#34;http://www.barsaley.com/images/sequelize_101/DB_Schema.png&#34; style=&#34;width:50%;display:block; margin:0 auto&#34; alt=&#34;here we go again&#34;/&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;1-migrations-and-seeders&#34;&gt;1. Migrations and Seeders:&lt;/h3&gt;
+&lt;h3 id=&#34;2-migrations-and-seeders&#34;&gt;2. Migrations and Seeders:&lt;/h3&gt;
 
-&lt;p&gt;Sequelize comes in with a very well build in support for migrations, These are basically managed via the &lt;a href=&#34;https://github.com/sequelize/cli&#34;&gt;sequelize-cli&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;It can be installed via npm as
+&lt;p&gt;Sequelize comes in with a very well build in support for migrations, These are basically managed via the &lt;a href=&#34;https://github.com/sequelize/cli&#34;&gt;sequelize-cli&lt;/a&gt;.
+It can be installed via npm as
 &lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ npm install --save sequelize-cli
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
-&lt;h4 id=&#34;1-1-creating-new-migrations&#34;&gt;1.1 Creating New Migrations:&lt;/h4&gt;
+&lt;h4 id=&#34;2-1-creating-new-migrations&#34;&gt;2.1 Creating New Migrations:&lt;/h4&gt;
 
 &lt;p&gt;Lets create a new migration to add an ending date to our todo&amp;rsquo;s, using the sequelize-cli we have&lt;br /&gt;
 &lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ node_modules/.bin/sequelize migration:create --name&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;Adding_End_date_to_Todo
@@ -103,7 +175,7 @@ module.exports = {
 &lt;p&gt;Okay Now that we have the basic structure up, Lets on-board some users, Luckily &lt;a href=&#34;http://marvel.wikia.com/wiki/Steven_Rogers_(Earth-616)&#34;&gt;Steven Rogers&lt;/a&gt; and &lt;a href=&#34;http://marvel.wikia.com/wiki/Bruce_Banner_(Earth-616)&#34;&gt;Bruce Banner&lt;/a&gt; has signed up to be our early users.
 &lt;img src=&#34;http://www.barsaley.com/images/memes/hell_yeah.gif&#34; style=&#34;width:60%;display:block; margin:0 auto&#34; alt=&#34;here we go again&#34;/&gt;&lt;/p&gt;
 
-&lt;h4 id=&#34;1-2-lets-add-some-seed-data&#34;&gt;1.2 Lets Add some Seed Data:&lt;/h4&gt;
+&lt;h4 id=&#34;2-2-lets-add-some-seed-data&#34;&gt;2.2 Lets Add some Seed Data:&lt;/h4&gt;
 
 &lt;p&gt;Just like migrations, we can create some seeders to populate the Database. Lets start by adding some categories&lt;/p&gt;
 
@@ -349,7 +421,7 @@ const getAllCategoriesReplacementsUsingArray = () =&amp;gt; {
 
 &lt;h4 id=&#34;3-3-tiny-little-things&#34;&gt;3.3 Tiny Little things:&lt;/h4&gt;
 
-&lt;h4 id=&#34;3-3-1-raw-true&#34;&gt;3.3.1 raw: true&lt;/h4&gt;
+&lt;h5 id=&#34;3-3-1-raw-true&#34;&gt;3.3.1 raw: true&lt;/h5&gt;
 
 &lt;p&gt;Sequelize always returns an instance object of the result, This basically includes functions to perform further operations over the result object.
 At times, We are not in need for any further operations over the result and only need to read/display.&lt;/p&gt;
@@ -370,7 +442,7 @@ At times, We are not in need for any further operations over the result and only
   CategoryId: 1 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;3-3-2-nested-keys&#34;&gt;3.3.2 Nested Keys&lt;/h4&gt;
+&lt;h5 id=&#34;3-3-2-nested-keys&#34;&gt;3.3.2 Nested Keys&lt;/h5&gt;
 
 &lt;p&gt;Lets start by adding a new Todo and lets not add any tasks for it.
 Now we need to count all the todos which don&amp;rsquo;t have any tasks.This would require accessing a column from the included Tasks table.&lt;/p&gt;
@@ -380,7 +452,7 @@ Now we need to count all the todos which don&amp;rsquo;t have any tasks.This wou
 
 &lt;p&gt;Adding the nested column name in between &lt;code&gt;$&lt;/code&gt; signs would do the trick.&lt;/p&gt;
 
-&lt;h4 id=&#34;3-3-3-validation&#34;&gt;3.3.3 Validation:&lt;/h4&gt;
+&lt;h5 id=&#34;3-3-3-validation&#34;&gt;3.3.3 Validation:&lt;/h5&gt;
 
 &lt;p&gt;Sequelize supports adding validations to models. These validations would be trigged before saving.
 Lets update our Todo model so name cannot be shorter than 2 and greater than 20.&lt;/p&gt;
@@ -406,7 +478,7 @@ To enable validations, just specify &lt;code&gt;validate: true&lt;/code&gt; as o
 
 &lt;p&gt;would raise an error&lt;/p&gt;
 
-&lt;h4 id=&#34;3-3-4-having-clause&#34;&gt;3.3.4 having Clause:&lt;/h4&gt;
+&lt;h5 id=&#34;3-3-4-having-clause&#34;&gt;3.3.4 having Clause:&lt;/h5&gt;
 
 &lt;p&gt;Lets try finding the Todo&amp;rsquo;s having more than 2 tasks. A very simple SQL query for it can be&lt;/p&gt;
 
@@ -418,7 +490,7 @@ To enable validations, just specify &lt;code&gt;validate: true&lt;/code&gt; as o
 &lt;pre&gt;&lt;code&gt;Model.Task.findAll({group:[&#39;TodoId&#39;],attributes:[&#39;TodoId&#39;],having:[&#39;Count (*) &amp;gt; ?&#39;,2]})
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;3-3-5-before-after-keys-in-migrations&#34;&gt;3.3.5 before/after keys in migrations:&lt;/h4&gt;
+&lt;h5 id=&#34;3-3-5-before-after-keys-in-migrations&#34;&gt;3.3.5 before/after keys in migrations:&lt;/h5&gt;
 
 &lt;p&gt;While adding columns via migrations, the options object supports two flags before/after for ordering of columns.&lt;/p&gt;
 
@@ -434,9 +506,9 @@ To enable validations, just specify &lt;code&gt;validate: true&lt;/code&gt; as o
 
 &lt;p&gt;Column order do have a performance impact, especially in &lt;a href=&#34;https://stackoverflow.com/questions/894522/is-there-any-reason-to-worry-about-the-column-order-in-a-table&#34;&gt;mysql&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&#34;5-gotcha-s&#34;&gt;5. Gotcha&amp;rsquo;s:&lt;/h3&gt;
+&lt;h3 id=&#34;4-gotcha-s&#34;&gt;4. Gotcha&amp;rsquo;s:&lt;/h3&gt;
 
-&lt;h4 id=&#34;5-1-promise-bluebird&#34;&gt;5.1 Promise bluebird:&lt;/h4&gt;
+&lt;h4 id=&#34;4-1-promise-bluebird&#34;&gt;4.1 Promise bluebird:&lt;/h4&gt;
 
 &lt;p&gt;Sequelize provides lots of options for error handling, You can find them &lt;a href=&#34;https://sequelize.readthedocs.io/en/v3/api/errors/&#34;&gt;here&lt;/a&gt;. Lets work upon catching the validation errors, We will update the addTodo method.&lt;/p&gt;
 
@@ -464,7 +536,7 @@ To enable validations, just specify &lt;code&gt;validate: true&lt;/code&gt; as o
     at error.ValidationError (/Users/shivambarsaley/Desktop/website/projects/Sequelize_The_Legendary_Way/node_modules/sequelize/lib/errors.js:42:19)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Not something we were expecting, :thinking_face:
+&lt;p&gt;Not something we were expecting, 😕.&lt;br /&gt;
 Since native JavaScript promises do not support filtered catch block, Upon a rejection, it ends in the first catch block and executes &lt;code&gt;Model.Sequelize.ValidationError&lt;/code&gt;
 which again throws another error which which we see upon being caught in the last catch block.
 We can solve this by using the standard catch block and instanceof operator.&lt;/p&gt;
@@ -494,7 +566,7 @@ Promise.all([Model.Todo.create({UserId:1,CategoryId:1,name:&amp;quot;A&amp;quot;
 .catch((e)=&amp;gt; {console.log(&#39;Something else wrong here&#39;,e)});
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;5-2-adding-foreign-keys&#34;&gt;5.2 Adding Foreign Keys:&lt;/h4&gt;
+&lt;h4 id=&#34;4-2-adding-foreign-keys&#34;&gt;4.2 Adding Foreign Keys:&lt;/h4&gt;
 
 &lt;p&gt;If you are using a version of sequelize &amp;lt; 4.0. There is a high possibility you might run into &lt;a href=&#34;https://github.com/sequelize/sequelize/issues/7267&#34;&gt;this&lt;/a&gt; issue, just like I did. To start with you should upgrade to v4, and use the &lt;a href=&#34;http://docs.sequelizejs.com/manual/tutorial/migrations.html#addconstraint-tablename-attributes-options-&#34;&gt;addConstraint&lt;/a&gt; method.&lt;/p&gt;
 
@@ -506,7 +578,7 @@ So something like&lt;/p&gt;
 
 &lt;p&gt;post creating the SubjectId column.&lt;/p&gt;
 
-&lt;h3 id=&#34;n-1-summarizing&#34;&gt;N-1. Summarizing:&lt;/h3&gt;
+&lt;h3 id=&#34;summarizing&#34;&gt;Summarizing:&lt;/h3&gt;
 
 &lt;p&gt;Sequelize is an extensive and powerful ORM for NodeJs. Though I didn&amp;rsquo;t get a chance to work across other Javascript ORM&amp;rsquo;s but Sequelize does seem to have a leading edge against others.&lt;/p&gt;
 
